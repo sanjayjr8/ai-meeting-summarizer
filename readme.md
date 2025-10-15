@@ -3,7 +3,7 @@
   <h1>AI Meeting Summarizer</h1>
   <p>An intelligent web application that transcribes meeting audio and generates structured, action-oriented summaries, complete with interactive AI chat capabilities.</p>
   <p>
-    
+    <a href="https://meetinginsightengine.streamlit.app/"><strong>View Live Demo »</strong></a>
   </p>
 </div>
 
@@ -21,11 +21,12 @@ This project was engineered to exceed the requirements of the hiring process for
 
 This isn't just a summarizer; it's a complete meeting intelligence platform.
 
-| Feature                    | Description                                                                                                                              | Benefit                                                                  |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Automated Transcription** | High-accuracy speech-to-text powered by **OpenAI's Whisper**. Users can select model quality to balance speed and precision.             | Eliminates manual note-taking and creates a perfect text record.         |
+| Feature                      | Description                                                                                                                              | Benefit                                                                  |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **High-Accuracy Transcription** | Industry-leading speech-to-text powered by **OpenAI's Whisper**.                                                                         | Eliminates manual note-taking and creates a perfect text record.         |
+| **Multi-Model Quality Control** | Users can choose from multiple Whisper models (`tiny`, `base`, `small`, `medium`) to balance transcription speed against accuracy.       | Provides flexibility for quick checks or mission-critical record-keeping.|
 | **AI-Powered Summary** | Generates a structured output with a **Summary**, **Key Decisions**, and **Action Items** using a highly-detailed prompt for **Google Gemini**. | Instantly understand meeting outcomes and required actions.               |
-| **Interactive AI Chat** | Ask custom questions about the current meeting or chat with the entire history of all summarized meetings to find cross-meeting insights. | Turns your meeting archive into a searchable, intelligent database.      |
+| **Advanced AI Interrogation** | Ask **custom questions** (custom prompting) about a single meeting, or perform cross-analysis by chatting with the entire meeting history. | Unlocks deeper insights and turns your archive into a searchable knowledge base. |
 | **Persistent History** | Every summary and transcript is automatically saved to a local **SQLite** database, creating a permanent and reviewable meeting log.     | Never lose track of past decisions or action items.                      |
 | **Professional UI** | A clean, intuitive, and responsive interface built with **Streamlit**, featuring tabs and organized layouts for a seamless user experience. | Easy to use for both technical and non-technical users.                   |
 
@@ -35,9 +36,7 @@ This isn't just a summarizer; it's a complete meeting intelligence platform.
 
 The application follows a logical, robust data processing pipeline designed for efficiency and clarity.
 
-<img width="819" height="317" alt="image" src="https://github.com/user-attachments/assets/a57fff22-e8cc-49dd-828c-49f071ccebbf" />
-
-
+<img width="819" height="317" alt="Application Architecture Diagram" src="https://github.com/user-attachments/assets/a57fff22-e8cc-49dd-828c-49f071ccebbf" />
 
 1.  **Upload**: The user uploads an audio file via the Streamlit frontend.
 2.  **Transcribe**: The audio is processed by the selected **Whisper** model to generate an accurate text transcript.
@@ -51,8 +50,8 @@ The application follows a logical, robust data processing pipeline designed for 
 
 Every component was chosen to meet professional standards for quality, efficiency, and scalability. This directly addresses the **Technical Expectations** of the project.
 
-| Component             | Technology                                                                                                    | Why It Was Chosen                                                                                                                                       |
-| --------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Component              | Technology         | Why It Was Chosen                                                                                                                                       |
+| ---------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Frontend Framework** | **Streamlit** | For rapid development of a beautiful, interactive data science application with pure Python, enabling a focus on core logic over complex web development. |
 | **ASR Engine** | **OpenAI Whisper** | Selected for its state-of-the-art transcription accuracy across a wide range of accents and audio qualities, directly addressing the accuracy requirement. |
 | **LLM Engine** | **Google Gemini** | Chosen for its advanced reasoning capabilities and reliable, structured JSON output, which is essential for a stable application backend.               |
@@ -65,10 +64,10 @@ Every component was chosen to meet professional standards for quality, efficienc
 This project was built from the ground up to excel in the specific areas of evaluation.
 
 ### 1. Transcription Accuracy & Summary Quality
--   **Solution**: By integrating **Whisper**, a best-in-class ASR model, and **Gemini**, a top-tier LLM, the core output of the application is of the highest possible quality. The user-selectable model size for Whisper further demonstrates an understanding of the accuracy-vs-speed trade-off.
+- **Solution**: By integrating **Whisper**, a best-in-class ASR model, and **Gemini**, a top-tier LLM, the core output of the application is of the highest possible quality. The user-selectable model size for Whisper (`tiny` to `medium`) further demonstrates an understanding of the critical engineering trade-off between performance and precision.
 
 ### 2. LLM Prompt Effectiveness
--   **Solution**: The project's "secret sauce" is its highly detailed, multi-part system prompt. It goes far beyond a simple request, acting as a comprehensive set of rules for the AI. This ensures consistent, high-quality, and structured output.
+- **Solution**: The project's "secret sauce" is its highly detailed, multi-part system prompt. It goes far beyond a simple request, acting as a comprehensive set of rules for the AI. This ensures consistent, high-quality, and structured output.
 
     <details>
     <summary>Click to view the prompt's core instructions</summary>
@@ -87,10 +86,9 @@ This project was built from the ground up to excel in the specific areas of eval
     </details>
 
 ### 3. Code Structure
--   **Solution**: The codebase is logically partitioned into `app.py` for the user interface and `logic.py` for all backend processing (database, AI calls). This separation of concerns is a professional best practice that makes the code clean, scalable, and easy to maintain.
+- **Solution**: The codebase is logically partitioned into `app.py` for the user interface and `logic.py` for all backend processing (database, AI calls). This separation of concerns is a professional best practice that makes the code clean, scalable, and easy to maintain.
 
-<img width="704" height="776" alt="image" src="https://github.com/user-attachments/assets/5ecb8110-dada-4443-bf61-0e49b592abd9" />
-
+<img width="704" height="776" alt="Code Structure Diagram" src="https://github.com/user-attachments/assets/5ecb8110-dada-4443-bf61-0e49b592abd9" />
 
 ---
 
@@ -114,9 +112,9 @@ This project was built from the ground up to excel in the specific areas of eval
     ```
 
 4.  **Set up your API key:**
-    -   Create a folder: `.streamlit`
-    -   Inside it, create a file: `secrets.toml`
-    -   Add your key: `GEMINI_API_KEY = "YOUR_KEY_HERE"`
+    - Create a folder: `.streamlit`
+    - Inside it, create a file: `secrets.toml`
+    - Add your key: `GEMINI_API_KEY = "YOUR_KEY_HERE"`
 
 5.  **Run the app:**
     ```bash
