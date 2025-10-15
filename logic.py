@@ -7,7 +7,7 @@ import json
 
 # --- Database Functions ---
 def init_db():
-    """Initializes the database and creates the 'meetings' table if it doesn't exist."""
+    """Initializes the database and creates the 'meetings' table with the correct schema."""
     conn = sqlite3.connect('meetings.db')
     c = conn.cursor()
     c.execute('''
@@ -23,7 +23,7 @@ def init_db():
     conn.close()
 
 def save_meeting(filename, transcript, summary_json):
-    """Saves a completed meeting summary to the database."""
+    """Saves a completed meeting summary and transcript to the database."""
     conn = sqlite3.connect('meetings.db')
     c = conn.cursor()
     created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -120,7 +120,6 @@ def summarize_text(_transcript, api_key):
     full_prompt = PROMPT + _transcript
     response = model.generate_content(full_prompt)
     
-    # Cleanup helps ensure the output is perfect for parsing.
     json_response_text = response.text.strip().replace("```json", "").replace("```", "")
     return json_response_text
 

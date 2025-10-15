@@ -35,7 +35,7 @@ This isn't just a summarizer; it's a complete meeting intelligence platform.
 
 The application follows a logical, robust data processing pipeline designed for efficiency and clarity.
 
-![Application Architecture Diagram](YOUR_LINK_TO_ARCHITECTURE_DIAGRAM_IMAGE_HERE.png)
+![Application Architecture Diagram](assets\logo.png)
 
 1.  **Upload**: The user uploads an audio file via the Streamlit frontend.
 2.  **Transcribe**: The audio is processed by the selected **Whisper** model to generate an accurate text transcript.

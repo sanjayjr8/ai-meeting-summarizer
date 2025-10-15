@@ -12,16 +12,12 @@ st.set_page_config(page_title="AI Meeting Summarizer", page_icon="🤖", layout=
 # --- Logo Placement ---
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    # Ensure you have a logo file at 'assets/logo.png'
     if os.path.exists("assets/logo.png"):
         st.image("assets/logo.png", width=200)
-    else:
-        st.warning("Logo not found. Place your logo at 'assets/logo.png'")
 
 st.title("AI Meeting Summarizer 📋")
 
 # --- Session State Initialization ---
-# This ensures that data from the last uploaded file persists until a new one is processed.
 if 'current_transcript' not in st.session_state:
     st.session_state.current_transcript = ""
 if 'current_filename' not in st.session_state:
@@ -34,19 +30,19 @@ with st.sidebar:
         "Transcription Quality",
         ("tiny", "base", "small", "medium"),
         index=1,
-        help="Select the AI model size for transcription. Larger models are more accurate but take significantly longer to process."
+        help="Select the AI model size. Larger models are more accurate but take longer."
     )
     st.markdown("---")
     with st.expander("ℹ️ About This App"):
         st.write("""
             This app uses AI to automatically transcribe and summarize your meetings.
-            - **Transcription:** Powered by OpenAI's Whisper model.
-            - **Summarization:** Powered by Google's Gemini model.
-            - **Interactive Chat:** Ask custom questions about your meetings.
-            - **Database:** Meeting history is stored locally using SQLite.
+            - **Transcription:** Powered by OpenAI's Whisper.
+            - **Summarization:** Powered by Google's Gemini.
+            - **Interactive Chat:** Ask custom questions about meetings.
+            - **Database:** Meeting history is stored using SQLite.
         """)
     st.markdown("---")
-    st.markdown("Built by **Sanjay J**")
+    st.markdown("Built by **Sanjai**")
 
 # --- Main Page ---
 st.markdown("Upload your meeting audio file to get a transcript, a concise summary, key decisions, and action items.")
@@ -64,39 +60,36 @@ if uploaded_file is not None:
     with open(uploaded_file.name, "wb") as f:
         f.write(uploaded_file.getbuffer())
     
-    with st.spinner(f"1. Transcribing audio with '{model_size}' model... (This may take a while for large files)"):
+    with st.spinner(f"1. Transcribing with '{model_size}' model..."):
         transcript_text = transcribe_audio(uploaded_file.name, model_size)
         st.session_state.current_transcript = transcript_text
         st.session_state.current_filename = uploaded_file.name
 
-    with st.spinner("2. Generating summary with AI..."):
+    with st.spinner("2. Generating summary..."):
         summary_json = summarize_text(transcript_text, st.secrets["GEMINI_API_KEY"])
         try:
             summary_data = json.loads(summary_json)
             
-            summary_tab, decisions_tab, actions_tab = st.tabs(["Summary", "Key Decisions", "Action Items"])
+            summary_tab, decisions_tab, actions_tab = st.tabs(["📑 Summary", "✅ Key Decisions", "📌 Action Items"])
 
             with summary_tab:
-                st.subheader("Meeting Summary")
                 st.write(summary_data.get("summary", "No summary was generated."))
 
             with decisions_tab:
-                st.subheader("Key Decisions Made")
                 decisions = summary_data.get("key_decisions", [])
                 if decisions:
                     for decision in decisions:
                         st.markdown(f"- {decision}")
                 else:
-                    st.write("No specific decisions were identified.")
+                    st.info("No specific decisions were identified in the transcript.")
 
             with actions_tab:
-                st.subheader("Action Items")
                 actions = summary_data.get("action_items", [])
                 if actions:
                     for item in actions:
                         st.markdown(f"- **Owner:** {item.get('owner', 'N/A')} | **Task:** {item.get('task', 'N/A')} | **Deadline:** {item.get('deadline', 'N/A')}")
                 else:
-                    st.write("No specific action items were identified.")
+                    st.info("No specific action items were identified in the transcript.")
             
             with st.expander("View Full Transcript"):
                 st.code(transcript_text, language=None)
@@ -115,8 +108,6 @@ if uploaded_file is not None:
 
 # --- Interactive AI Features ---
 st.markdown("---")
-
-# Feature 1: Custom Query on Current Transcript
 if st.session_state.current_transcript:
     st.header(f"🔍 Interact with '{st.session_state.current_filename}'")
     with st.expander("Ask a custom question about this specific meeting"):
@@ -129,7 +120,6 @@ if st.session_state.current_transcript:
             else:
                 st.warning("Please enter a question.")
 
-# Feature 2: Chat with Meeting History
 st.header("💬 Chat with All Past Meetings")
 past_meetings = load_meetings()
 if not past_meetings:
@@ -142,9 +132,8 @@ else:
                 with st.spinner("Searching through past meetings..."):
                     full_context = ""
                     for meeting in past_meetings:
-                        filename, _, created_at, transcript = meeting
-                        full_context += f"--- Meeting: {filename} ({created_at}) ---\n"
-                        full_context += f"Transcript: {transcript}\n\n"
+                        _, _, _, transcript = meeting
+                        full_context += f"{transcript}\n\n"
                     
                     answer = query_text(full_context, history_question, st.secrets["GEMINI_API_KEY"])
                     st.info(answer)
@@ -165,5 +154,5 @@ else:
                 st.write("**Summary:**", summary_data.get("summary", "N/A"))
                 st.write("**Full Transcript:**")
                 st.info(transcript)
-            except Exception as e:
+            except Exception:
                 st.error("Could not display this summary due to a formatting issue.")
