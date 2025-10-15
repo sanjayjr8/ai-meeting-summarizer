@@ -3,7 +3,7 @@
   <h1>AI Meeting Summarizer</h1>
   <p>An intelligent web application that transcribes meeting audio and generates structured, action-oriented summaries, complete with interactive AI chat capabilities.</p>
   <p>
-    <a href="https://meetinginsightengine.streamlit.app/"><strong>View Live Demo »</strong></a>
+    
   </p>
 </div>
 
@@ -35,7 +35,9 @@ This isn't just a summarizer; it's a complete meeting intelligence platform.
 
 The application follows a logical, robust data processing pipeline designed for efficiency and clarity.
 
-![Application Architecture Diagram](assets\logo.png)
+<img width="819" height="317" alt="image" src="https://github.com/user-attachments/assets/a57fff22-e8cc-49dd-828c-49f071ccebbf" />
+
+
 
 1.  **Upload**: The user uploads an audio file via the Streamlit frontend.
 2.  **Transcribe**: The audio is processed by the selected **Whisper** model to generate an accurate text transcript.
@@ -87,7 +89,8 @@ This project was built from the ground up to excel in the specific areas of eval
 ### 3. Code Structure
 -   **Solution**: The codebase is logically partitioned into `app.py` for the user interface and `logic.py` for all backend processing (database, AI calls). This separation of concerns is a professional best practice that makes the code clean, scalable, and easy to maintain.
 
-![Code Structure Diagram](YOUR_LINK_TO_CODE_STRUCTURE_IMAGE_HERE.png)
+<img width="704" height="776" alt="image" src="https://github.com/user-attachments/assets/5ecb8110-dada-4443-bf61-0e49b592abd9" />
+
 
 ---
 
