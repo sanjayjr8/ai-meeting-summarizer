@@ -42,7 +42,7 @@ with st.sidebar:
             - **Database:** Meeting history is stored using SQLite.
         """)
     st.markdown("---")
-    st.markdown("Built by **Sanjai**")
+    st.markdown("Built by **Sanjay J**")
 
 # --- Main Page ---
 st.markdown("Upload your meeting audio file to get a transcript, a concise summary, key decisions, and action items.")
